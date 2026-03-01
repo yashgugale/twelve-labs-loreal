@@ -259,30 +259,53 @@ export default function VideoGrid() {
     }));
 
     try {
+      // Step 1: Get upload config (API key, index ID) from server
+      const configRes = await fetch("/api/upload/config");
+      if (!configRes.ok) throw new Error("Failed to get upload config");
+      const config = await configRes.json();
+
+      setUpload((prev) => ({ ...prev, progress: 20, message: "Uploading to Twelve Labs..." }));
+
+      // Step 2: Upload directly to Twelve Labs (bypasses Vercel body size limit)
       const formData = new FormData();
+      formData.append("index_id", config.index_id);
       formData.append("video_file", upload.file);
 
-      // Simulate progress while uploading
       const progressInterval = setInterval(() => {
         setUpload((prev) => ({
           ...prev,
-          progress: Math.min(prev.progress + 5, 90),
+          progress: Math.min(prev.progress + 3, 85),
         }));
-      }, 500);
+      }, 1000);
 
-      const res = await fetch("/api/upload", {
+      const res = await fetch(`${config.api_base}/tasks`, {
         method: "POST",
+        headers: { "x-api-key": config.api_key },
         body: formData,
       });
 
       clearInterval(progressInterval);
 
       if (!res.ok) {
-        const errData = await res.json();
-        throw new Error(errData.error || "Upload failed");
+        const errText = await res.text();
+        throw new Error(`Upload failed: ${errText}`);
       }
 
       const data = await res.json();
+
+      setUpload((prev) => ({ ...prev, progress: 95, message: "Registering task..." }));
+
+      // Step 3: Register the task in our server's in-memory store
+      await fetch("/api/upload/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          taskId: data._id,
+          videoId: data.video_id,
+          filename: upload.file!.name,
+        }),
+      });
+
       setUpload({
         file: null,
         status: "success",
