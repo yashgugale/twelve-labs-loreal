@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>API_DOCUMENTATION.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid@10.4.0/dist/mermaid.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="lor%C3%A9al-video-intelligence-platform--api-documentation">L'Oréal Video Intelligence Platform — API Documentation</h1>
+<h2 id="overview">Overview</h2>
+<p>This application provides a set of API routes that proxy requests to the <strong>Twelve Labs Video Understanding API (v1.3)</strong>. All routes are located under <code>/api/</code> and handle authentication server-side using the <code>API_KEY</code> environment variable.</p>
+<p><strong>Base Configuration:</strong></p>
+<ul>
+<li>Twelve Labs API Base: <code>https://api.twelvelabs.io/v1.3</code></li>
+<li>Index ID: <code>69a2edcae64ea62a9b356270</code></li>
+</ul>
+<hr>
+<h2 id="1-list-videos">1. List Videos</h2>
+<p><strong><code>GET /api/videos</code></strong></p>
+<p>Fetches all videos from the index with full detail (system metadata, HLS URLs, user metadata).</p>
+<h3 id="query-parameters">Query Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>page</code></td>
+<td>string</td>
+<td><code>&quot;1&quot;</code></td>
+<td>Page number</td>
+</tr>
+<tr>
+<td><code>page_limit</code></td>
+<td>string</td>
+<td><code>&quot;20&quot;</code></td>
+<td>Number of videos per page</td>
+</tr>
+</tbody>
+</table>
+<h3 id="request">Request</h3>
+<pre class="hljs"><code><div>GET /api/videos?page=1&amp;page_limit=20
+</div></code></pre>
+<h3 id="response--200-ok">Response — <code>200 OK</code></h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"data"</span>: [
+    {
+      <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"69a48283e64ea62a9b35b4b4"</span>,
+      <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2026-03-01T18:16:35Z"</span>,
+      <span class="hljs-attr">"updated_at"</span>: <span class="hljs-string">"2026-03-01T18:22:10Z"</span>,
+      <span class="hljs-attr">"indexed_at"</span>: <span class="hljs-string">"2026-03-01T18:22:10Z"</span>,
+      <span class="hljs-attr">"system_metadata"</span>: {
+        <span class="hljs-attr">"filename"</span>: <span class="hljs-string">"creators_10.webm"</span>,
+        <span class="hljs-attr">"duration"</span>: <span class="hljs-number">245.12</span>,
+        <span class="hljs-attr">"fps"</span>: <span class="hljs-number">30</span>,
+        <span class="hljs-attr">"width"</span>: <span class="hljs-number">3840</span>,
+        <span class="hljs-attr">"height"</span>: <span class="hljs-number">2160</span>,
+        <span class="hljs-attr">"size"</span>: <span class="hljs-number">395698176</span>
+      },
+      <span class="hljs-attr">"user_metadata"</span>: {
+        <span class="hljs-attr">"indexing_status"</span>: <span class="hljs-string">"Complete"</span>,
+        <span class="hljs-attr">"analysis_status"</span>: <span class="hljs-string">"Complete"</span>,
+        <span class="hljs-attr">"indexed_at"</span>: <span class="hljs-string">"2026-03-01T18:22:15.000Z"</span>,
+        <span class="hljs-attr">"format"</span>: <span class="hljs-string">"product_demo"</span>,
+        <span class="hljs-attr">"product_sku"</span>: <span class="hljs-string">"AIR-VOLUME-MASCARA"</span>,
+        <span class="hljs-attr">"product_line"</span>: <span class="hljs-string">"Air Volume Mega Mascara"</span>,
+        <span class="hljs-attr">"confidence_score"</span>: <span class="hljs-number">0.98</span>,
+        <span class="hljs-attr">"shot_type"</span>: <span class="hljs-string">"close_up"</span>,
+        <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"application"</span>,
+        <span class="hljs-attr">"setting"</span>: <span class="hljs-string">"studio"</span>,
+        <span class="hljs-attr">"provenance"</span>: <span class="hljs-string">"SKU visible on product packaging at 00:05..."</span>,
+        <span class="hljs-attr">"on_screen_text"</span>: <span class="hljs-string">"[\"beauty road test\",\"AIR VOLUME MASCARA\"]"</span>,
+        <span class="hljs-attr">"spoken_mentions"</span>: <span class="hljs-string">"[\"I really love the volume\",\"L'Oreal Paris Air Volume\"]"</span>
+      },
+      <span class="hljs-attr">"hls"</span>: {
+        <span class="hljs-attr">"video_url"</span>: <span class="hljs-string">"https://deuqpmn4rs7j5.cloudfront.net/.../master.m3u8"</span>,
+        <span class="hljs-attr">"thumbnail_urls"</span>: [
+          <span class="hljs-string">"https://deuqpmn4rs7j5.cloudfront.net/.../representative_thumbnail.jpeg"</span>
+        ],
+        <span class="hljs-attr">"status"</span>: <span class="hljs-string">"complete"</span>
+      }
+    }
+  ],
+  <span class="hljs-attr">"page_info"</span>: {
+    <span class="hljs-attr">"limit_per_page"</span>: <span class="hljs-number">20</span>,
+    <span class="hljs-attr">"page"</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">"total_page"</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">"total_results"</span>: <span class="hljs-number">48</span>
+  }
+}
+</div></code></pre>
+<h3 id="error-responses">Error Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>500</code></td>
+<td><code>{ &quot;error&quot;: &quot;API_KEY not configured&quot; }</code></td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td><code>{ &quot;error&quot;: &quot;Failed to fetch videos&quot; }</code></td>
+</tr>
+<tr>
+<td><code>4xx</code></td>
+<td><code>{ &quot;error&quot;: &quot;Twelve Labs API error: &lt;detail&gt;&quot; }</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2-upload-video">2. Upload Video</h2>
+<p><strong><code>POST /api/upload</code></strong></p>
+<p>Uploads a video file to the Twelve Labs index for indexing. Registers the task in an in-memory store for processing status tracking.</p>
+<h3 id="request">Request</h3>
+<ul>
+<li><strong>Content-Type:</strong> <code>multipart/form-data</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>video_file</code></td>
+<td>File</td>
+<td>Yes</td>
+<td>The video file to upload (max 2GB)</td>
+</tr>
+</tbody>
+</table>
+<pre class="hljs"><code><div>POST /api/upload
+Content-Type: multipart/form-data
+
+--boundary
+Content-Disposition: form-data; name=&quot;video_file&quot;; filename=&quot;demo.mp4&quot;
+Content-Type: video/mp4
+
+&lt;binary data&gt;
+--boundary--
+</div></code></pre>
+<h3 id="response--200-ok">Response — <code>200 OK</code></h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"69a482a37f90675e73cec9a6"</span>,
+  <span class="hljs-attr">"video_id"</span>: <span class="hljs-string">"69a48283e64ea62a9b35b4b4"</span>,
+  <span class="hljs-attr">"status"</span>: <span class="hljs-string">"pending"</span>
+}
+</div></code></pre>
+<p>The <code>_id</code> is the <strong>task ID</strong> used for tracking indexing progress.</p>
+<h3 id="error-responses">Error Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>400</code></td>
+<td><code>{ &quot;error&quot;: &quot;No video file provided&quot; }</code></td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td><code>{ &quot;error&quot;: &quot;API_KEY not configured&quot; }</code></td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td><code>{ &quot;error&quot;: &quot;Failed to upload video&quot; }</code></td>
+</tr>
+<tr>
+<td><code>4xx</code></td>
+<td><code>{ &quot;error&quot;: &quot;Twelve Labs API error: &lt;detail&gt;&quot; }</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3-search-videos">3. Search Videos</h2>
+<p><strong><code>POST /api/search</code></strong></p>
+<p>Performs semantic search across all indexed videos using text queries and/or metadata filters. Proxies to the Twelve Labs Search API and enriches results with video details.</p>
+<h3 id="request">Request</h3>
+<ul>
+<li><strong>Content-Type:</strong> <code>application/json</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>query</code></td>
+<td>string</td>
+<td>No*</td>
+<td>Natural language search query</td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td>string</td>
+<td>No</td>
+<td>Filter: <code>tutorial</code>, <code>product_demo</code>, <code>advertisement</code>, <code>before_after</code>, <code>creator_collab</code></td>
+</tr>
+<tr>
+<td><code>shot_type</code></td>
+<td>string</td>
+<td>No</td>
+<td>Filter: <code>close_up</code>, <code>medium_shot</code>, <code>wide_shot</code>, <code>packshot</code></td>
+</tr>
+<tr>
+<td><code>activity</code></td>
+<td>string</td>
+<td>No</td>
+<td>Filter: <code>application</code>, <code>swatching</code>, <code>unboxing</code>, <code>stationary_display</code></td>
+</tr>
+<tr>
+<td><code>setting</code></td>
+<td>string</td>
+<td>No</td>
+<td>Filter: <code>studio</code>, <code>outdoor</code>, <code>home_interior</code></td>
+</tr>
+<tr>
+<td><code>page_limit</code></td>
+<td>number</td>
+<td>No</td>
+<td>Results per page (default: <code>20</code>, max: <code>50</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>*At least one of <code>query</code> or a filter must be provided.</p>
+<pre class="hljs"><code><div>POST /api/search
+Content-Type: application/json
+
+{
+  <span class="hljs-attr">"query"</span>: <span class="hljs-string">"mascara application tutorial"</span>,
+  <span class="hljs-attr">"format"</span>: <span class="hljs-string">"product_demo"</span>,
+  <span class="hljs-attr">"shot_type"</span>: <span class="hljs-string">"close_up"</span>,
+  <span class="hljs-attr">"page_limit"</span>: <span class="hljs-number">10</span>
+}
+</div></code></pre>
+<h3 id="filter-only-request-no-text-query">Filter-Only Request (no text query)</h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"format"</span>: <span class="hljs-string">"advertisement"</span>,
+  <span class="hljs-attr">"setting"</span>: <span class="hljs-string">"studio"</span>
+}
+</div></code></pre>
+<h3 id="response--200-ok">Response — <code>200 OK</code></h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"results"</span>: [
+    {
+      <span class="hljs-attr">"video_id"</span>: <span class="hljs-string">"69a48283e64ea62a9b35b4b4"</span>,
+      <span class="hljs-attr">"clips"</span>: [
+        {
+          <span class="hljs-attr">"start"</span>: <span class="hljs-number">0.0</span>,
+          <span class="hljs-attr">"end"</span>: <span class="hljs-number">9.375</span>,
+          <span class="hljs-attr">"video_id"</span>: <span class="hljs-string">"69a48283e64ea62a9b35b4b4"</span>,
+          <span class="hljs-attr">"confidence"</span>: <span class="hljs-string">"high"</span>,
+          <span class="hljs-attr">"score"</span>: <span class="hljs-number">87.52</span>,
+          <span class="hljs-attr">"thumbnail_url"</span>: <span class="hljs-string">"https://..."</span>
+        },
+        {
+          <span class="hljs-attr">"start"</span>: <span class="hljs-number">207.5</span>,
+          <span class="hljs-attr">"end"</span>: <span class="hljs-number">214.0625</span>,
+          <span class="hljs-attr">"video_id"</span>: <span class="hljs-string">"69a48283e64ea62a9b35b4b4"</span>,
+          <span class="hljs-attr">"confidence"</span>: <span class="hljs-string">"high"</span>,
+          <span class="hljs-attr">"score"</span>: <span class="hljs-number">85.1</span>
+        }
+      ]
+    }
+  ],
+  <span class="hljs-attr">"search_pool"</span>: {
+    <span class="hljs-attr">"total_count"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">"total_duration"</span>: <span class="hljs-number">8731</span>,
+    <span class="hljs-attr">"index_id"</span>: <span class="hljs-string">"69a2edcae64ea62a9b356270"</span>
+  },
+  <span class="hljs-attr">"page_info"</span>: {
+    <span class="hljs-attr">"limit_per_page"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">"page_expired_at"</span>: <span class="hljs-string">"2026-03-01T19:00:00Z"</span>,
+    <span class="hljs-attr">"next_page_token"</span>: <span class="hljs-string">"abc123"</span>,
+    <span class="hljs-attr">"total_results"</span>: <span class="hljs-number">3</span>
+  },
+  <span class="hljs-attr">"video_details"</span>: {
+    <span class="hljs-attr">"69a48283e64ea62a9b35b4b4"</span>: {
+      <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"69a48283e64ea62a9b35b4b4"</span>,
+      <span class="hljs-attr">"system_metadata"</span>: {
+        <span class="hljs-attr">"filename"</span>: <span class="hljs-string">"creators_10.webm"</span>,
+        <span class="hljs-attr">"duration"</span>: <span class="hljs-number">245.12</span>,
+        <span class="hljs-attr">"width"</span>: <span class="hljs-number">3840</span>,
+        <span class="hljs-attr">"height"</span>: <span class="hljs-number">2160</span>,
+        <span class="hljs-attr">"fps"</span>: <span class="hljs-number">30</span>,
+        <span class="hljs-attr">"size"</span>: <span class="hljs-number">395698176</span>
+      },
+      <span class="hljs-attr">"user_metadata"</span>: {
+        <span class="hljs-attr">"indexing_status"</span>: <span class="hljs-string">"Complete"</span>,
+        <span class="hljs-attr">"analysis_status"</span>: <span class="hljs-string">"Complete"</span>,
+        <span class="hljs-attr">"format"</span>: <span class="hljs-string">"product_demo"</span>,
+        <span class="hljs-attr">"product_sku"</span>: <span class="hljs-string">"AIR-VOLUME-MASCARA"</span>,
+        <span class="hljs-attr">"shot_type"</span>: <span class="hljs-string">"close_up"</span>,
+        <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"application"</span>,
+        <span class="hljs-attr">"setting"</span>: <span class="hljs-string">"studio"</span>,
+        <span class="hljs-attr">"confidence_score"</span>: <span class="hljs-number">0.98</span>
+      },
+      <span class="hljs-attr">"hls"</span>: {
+        <span class="hljs-attr">"video_url"</span>: <span class="hljs-string">"https://...master.m3u8"</span>,
+        <span class="hljs-attr">"thumbnail_urls"</span>: [<span class="hljs-string">"https://...thumbnail.jpeg"</span>]
+      }
+    }
+  }
+}
+</div></code></pre>
+<h3 id="error-responses">Error Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>400</code></td>
+<td><code>{ &quot;error&quot;: &quot;Provide a search query or at least one filter&quot; }</code></td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td><code>{ &quot;error&quot;: &quot;API_KEY not configured&quot; }</code></td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td><code>{ &quot;error&quot;: &quot;Failed to search videos&quot; }</code></td>
+</tr>
+<tr>
+<td><code>4xx</code></td>
+<td><code>{ &quot;error&quot;: &quot;Search API error: &lt;detail&gt;&quot; }</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4-processing-tasks">4. Processing Tasks</h2>
+<p><strong><code>GET /api/tasks</code></strong></p>
+<p>Returns all in-flight video processing tasks from the in-memory store. Ready/failed tasks are returned once then immediately removed from the store.</p>
+<h3 id="request">Request</h3>
+<pre class="hljs"><code><div>GET /api/tasks
+</div></code></pre>
+<h3 id="response--200-ok">Response — <code>200 OK</code></h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"tasks"</span>: [
+    {
+      <span class="hljs-attr">"taskId"</span>: <span class="hljs-string">"69a482a37f90675e73cec9a6"</span>,
+      <span class="hljs-attr">"videoId"</span>: <span class="hljs-string">"69a48283e64ea62a9b35b4b4"</span>,
+      <span class="hljs-attr">"filename"</span>: <span class="hljs-string">"creators_10.webm"</span>,
+      <span class="hljs-attr">"status"</span>: <span class="hljs-string">"processing"</span>,
+      <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"2026-03-01T18:17:00.000Z"</span>
+    },
+    {
+      <span class="hljs-attr">"taskId"</span>: <span class="hljs-string">"69a482b07f90675e73cec9a7"</span>,
+      <span class="hljs-attr">"filename"</span>: <span class="hljs-string">"demo.mp4"</span>,
+      <span class="hljs-attr">"status"</span>: <span class="hljs-string">"ready"</span>,
+      <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"2026-03-01T18:10:00.000Z"</span>
+    }
+  ]
+}
+</div></code></pre>
+<h3 id="task-status-values">Task Status Values</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>processing</code></td>
+<td>Video is being indexed by Twelve Labs</td>
+</tr>
+<tr>
+<td><code>ready</code></td>
+<td>Indexing complete (task removed after first poll)</td>
+</tr>
+<tr>
+<td><code>failed</code></td>
+<td>Indexing failed (task removed after first poll)</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5-webhook--twelve-labs-indexing-events">5. Webhook — Twelve Labs Indexing Events</h2>
+<p><strong><code>POST /api/webhooks/twelve-labs</code></strong></p>
+<p>Receives webhook notifications from Twelve Labs when video indexing completes or fails. On success, it triggers the Analyze API to extract structured metadata and stores it on the video.</p>
+<h3 id="headers">Headers</h3>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TL-Signature</code></td>
+<td>HMAC SHA-256 signature: <code>t=&lt;timestamp&gt;,v1=&lt;hex_signature&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="signature-verification">Signature Verification</h3>
+<p>The signature is verified using the <code>WEBHOOK_SECRET</code> environment variable:</p>
+<ol>
+<li>Parse <code>t</code> (timestamp) and <code>v1</code> (signature) from the header</li>
+<li>Check timestamp is within 5 minutes of current time</li>
+<li>Compute HMAC-SHA256 of <code>&lt;timestamp&gt;.&lt;raw_body&gt;</code> using the secret</li>
+<li>Compare with the received signature</li>
+</ol>
+<h3 id="request--indextaskready">Request — <code>index.task.ready</code></h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"evt_abc123"</span>,
+  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2026-03-01T18:22:00Z"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"index.task.ready"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"69a482a37f90675e73cec9a6"</span>,
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"ready"</span>,
+    <span class="hljs-attr">"metadata"</span>: {
+      <span class="hljs-attr">"duration"</span>: <span class="hljs-number">245.12</span>
+    }
+  }
+}
+</div></code></pre>
+<h3 id="request--indextaskfailed">Request — <code>index.task.failed</code></h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"id"</span>: <span class="hljs-string">"evt_def456"</span>,
+  <span class="hljs-attr">"created_at"</span>: <span class="hljs-string">"2026-03-01T18:22:00Z"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"index.task.failed"</span>,
+  <span class="hljs-attr">"data"</span>: {
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"69a482a37f90675e73cec9a6"</span>,
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"failed"</span>
+  }
+}
+</div></code></pre>
+<h3 id="response--200-ok">Response — <code>200 OK</code></h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"received"</span>: <span class="hljs-literal">true</span>
+}
+</div></code></pre>
+<h3 id="post-processing-flow-on-indextaskready">Post-Processing Flow (on <code>index.task.ready</code>)</h3>
+<ol>
+<li>Resolve <code>video_id</code> from task (in-memory store → Twelve Labs <code>GET /tasks/:id</code>)</li>
+<li>Call <strong>Analyze API</strong> (<code>POST /v1.3/analyze</code>) with structured beauty marketing prompt</li>
+<li>Parse structured JSON response</li>
+<li>Flatten and store as <code>user_metadata</code> via <code>PATCH /v1.3/indexes/:id/videos/:vid</code></li>
+</ol>
+<h3 id="error-responses">Error Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Body</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>401</code></td>
+<td><code>{ &quot;error&quot;: &quot;Invalid signature&quot; }</code></td>
+</tr>
+<tr>
+<td><code>400</code></td>
+<td><code>{ &quot;error&quot;: &quot;Missing task ID in payload&quot; }</code></td>
+</tr>
+<tr>
+<td><code>500</code></td>
+<td><code>{ &quot;error&quot;: &quot;Failed to process webhook&quot; }</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="6-webhook--debug-endpoint">6. Webhook — Debug Endpoint</h2>
+<p><strong><code>GET /api/webhooks/twelve-labs</code></strong></p>
+<p>Returns all tasks from the in-memory store (for debugging purposes).</p>
+<h3 id="response--200-ok">Response — <code>200 OK</code></h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"tasks"</span>: [
+    {
+      <span class="hljs-attr">"taskId"</span>: <span class="hljs-string">"69a482a37f90675e73cec9a6"</span>,
+      <span class="hljs-attr">"videoId"</span>: <span class="hljs-string">"69a48283e64ea62a9b35b4b4"</span>,
+      <span class="hljs-attr">"filename"</span>: <span class="hljs-string">"creators_10.webm"</span>,
+      <span class="hljs-attr">"status"</span>: <span class="hljs-string">"ready"</span>,
+      <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"2026-03-01T18:17:00.000Z"</span>
+    }
+  ]
+}
+</div></code></pre>
+<hr>
+<h2 id="twelve-labs-apis-used-upstream">Twelve Labs APIs Used (Upstream)</h2>
+<p>The application proxies or calls the following Twelve Labs API endpoints:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Used By</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1.3/indexes/:index_id/videos</code></td>
+<td><code>/api/videos</code></td>
+<td>List videos in index</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1.3/indexes/:index_id/videos/:video_id</code></td>
+<td><code>/api/videos</code>, <code>/api/search</code></td>
+<td>Get video detail</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1.3/tasks</code></td>
+<td><code>/api/upload</code></td>
+<td>Create indexing task (upload video)</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/v1.3/tasks/:task_id</code></td>
+<td>Webhook</td>
+<td>Resolve video_id from task</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1.3/search</code></td>
+<td><code>/api/search</code></td>
+<td>Semantic search with filters</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/v1.3/analyze</code></td>
+<td>Webhook</td>
+<td>AI analysis of video content</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><code>/v1.3/indexes/:index_id/videos/:video_id</code></td>
+<td>Webhook</td>
+<td>Update video user_metadata</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="analyze-api--request--response">Analyze API — Request &amp; Response</h2>
+<h3 id="request-called-by-webhook-after-indexing">Request (called by webhook after indexing)</h3>
+<pre class="hljs"><code><div>POST https://api.twelvelabs.io/v1.3/analyze
+x-api-key: &lt;API_KEY&gt;
+Content-Type: application/json
+</div></code></pre>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"video_id"</span>: <span class="hljs-string">"69a48283e64ea62a9b35b4b4"</span>,
+  <span class="hljs-attr">"prompt"</span>: <span class="hljs-string">"Analyze this beauty marketing video and extract structured metadata..."</span>,
+  <span class="hljs-attr">"temperature"</span>: <span class="hljs-number">0.2</span>,
+  <span class="hljs-attr">"stream"</span>: <span class="hljs-literal">false</span>,
+  <span class="hljs-attr">"response_format"</span>: {
+    <span class="hljs-attr">"type"</span>: <span class="hljs-string">"json_schema"</span>,
+    <span class="hljs-attr">"json_schema"</span>: {
+      <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+      <span class="hljs-attr">"properties"</span>: {
+        <span class="hljs-attr">"product_presence"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+          <span class="hljs-attr">"properties"</span>: {
+            <span class="hljs-attr">"sku"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span> },
+            <span class="hljs-attr">"product_line"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span> },
+            <span class="hljs-attr">"confidence_score"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"number"</span> }
+          },
+          <span class="hljs-attr">"required"</span>: [<span class="hljs-string">"sku"</span>, <span class="hljs-string">"confidence_score"</span>]
+        },
+        <span class="hljs-attr">"format"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+          <span class="hljs-attr">"enum"</span>: [<span class="hljs-string">"tutorial"</span>, <span class="hljs-string">"product_demo"</span>, <span class="hljs-string">"advertisement"</span>, <span class="hljs-string">"before_after"</span>, <span class="hljs-string">"creator_collab"</span>]
+        },
+        <span class="hljs-attr">"visual_attributes"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+          <span class="hljs-attr">"properties"</span>: {
+            <span class="hljs-attr">"shot_type"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>, <span class="hljs-attr">"enum"</span>: [<span class="hljs-string">"close_up"</span>, <span class="hljs-string">"medium_shot"</span>, <span class="hljs-string">"wide_shot"</span>, <span class="hljs-string">"packshot"</span>] },
+            <span class="hljs-attr">"activity"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>, <span class="hljs-attr">"enum"</span>: [<span class="hljs-string">"application"</span>, <span class="hljs-string">"swatching"</span>, <span class="hljs-string">"unboxing"</span>, <span class="hljs-string">"stationary_display"</span>] },
+            <span class="hljs-attr">"setting"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>, <span class="hljs-attr">"enum"</span>: [<span class="hljs-string">"studio"</span>, <span class="hljs-string">"outdoor"</span>, <span class="hljs-string">"home_interior"</span>] }
+          },
+          <span class="hljs-attr">"required"</span>: [<span class="hljs-string">"shot_type"</span>, <span class="hljs-string">"activity"</span>]
+        },
+        <span class="hljs-attr">"intelligence"</span>: {
+          <span class="hljs-attr">"type"</span>: <span class="hljs-string">"object"</span>,
+          <span class="hljs-attr">"properties"</span>: {
+            <span class="hljs-attr">"on_screen_text"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>, <span class="hljs-attr">"items"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span> } },
+            <span class="hljs-attr">"spoken_mentions"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"array"</span>, <span class="hljs-attr">"items"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span> } }
+          }
+        },
+        <span class="hljs-attr">"provenance"</span>: { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span> }
+      },
+      <span class="hljs-attr">"required"</span>: [<span class="hljs-string">"product_presence"</span>, <span class="hljs-string">"format"</span>, <span class="hljs-string">"visual_attributes"</span>]
+    }
+  },
+  <span class="hljs-attr">"max_tokens"</span>: <span class="hljs-number">4096</span>
+}
+</div></code></pre>
+<h3 id="response--200-ok">Response — <code>200 OK</code></h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"data"</span>: <span class="hljs-string">"{\"product_presence\":{\"sku\":\"AIR-VOLUME-MASCARA\",\"product_line\":\"Air Volume Mega Mascara\",\"confidence_score\":0.98},\"format\":\"product_demo\",\"visual_attributes\":{\"shot_type\":\"close_up\",\"activity\":\"application\",\"setting\":\"studio\"},\"intelligence\":{\"on_screen_text\":[\"beauty road test\",\"AIR VOLUME MASCARA\"],\"spoken_mentions\":[\"I really love the volume that this mascara gave me\",\"L'Oreal Paris Air Volume Mega Mascara\"]},\"provenance\":\"The product SKU is confirmed through repeated on-screen text and verbal mentions...\"}"</span>
+}
+</div></code></pre>
+<p>The <code>data</code> field contains a JSON string that is parsed into the structured analysis result.</p>
+<hr>
+<h2 id="video-usermetadata-schema">Video <code>user_metadata</code> Schema</h2>
+<p>After the webhook processes a video, the following flat fields are stored as <code>user_metadata</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Values / Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>indexing_status</code></td>
+<td>string</td>
+<td><code>Not started</code>, <code>In progress</code>, <code>Complete</code>, <code>Failed</code></td>
+</tr>
+<tr>
+<td><code>analysis_status</code></td>
+<td>string</td>
+<td><code>Not started</code>, <code>In progress</code>, <code>Complete</code>, <code>Failed</code></td>
+</tr>
+<tr>
+<td><code>indexed_at</code></td>
+<td>string</td>
+<td>ISO 8601 timestamp</td>
+</tr>
+<tr>
+<td><code>format</code></td>
+<td>string</td>
+<td><code>tutorial</code>, <code>product_demo</code>, <code>advertisement</code>, <code>before_after</code>, <code>creator_collab</code></td>
+</tr>
+<tr>
+<td><code>product_sku</code></td>
+<td>string</td>
+<td>e.g. <code>AIR-VOLUME-MASCARA</code></td>
+</tr>
+<tr>
+<td><code>product_line</code></td>
+<td>string</td>
+<td>e.g. <code>Air Volume Mega Mascara</code></td>
+</tr>
+<tr>
+<td><code>confidence_score</code></td>
+<td>number</td>
+<td><code>0.0</code> – <code>1.0</code></td>
+</tr>
+<tr>
+<td><code>shot_type</code></td>
+<td>string</td>
+<td><code>close_up</code>, <code>medium_shot</code>, <code>wide_shot</code>, <code>packshot</code></td>
+</tr>
+<tr>
+<td><code>activity</code></td>
+<td>string</td>
+<td><code>application</code>, <code>swatching</code>, <code>unboxing</code>, <code>stationary_display</code></td>
+</tr>
+<tr>
+<td><code>setting</code></td>
+<td>string</td>
+<td><code>studio</code>, <code>outdoor</code>, <code>home_interior</code></td>
+</tr>
+<tr>
+<td><code>provenance</code></td>
+<td>string</td>
+<td>Evidence description</td>
+</tr>
+<tr>
+<td><code>on_screen_text</code></td>
+<td>string</td>
+<td>JSON-stringified array of strings</td>
+</tr>
+<tr>
+<td><code>spoken_mentions</code></td>
+<td>string</td>
+<td>JSON-stringified array of strings</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="environment-variables">Environment Variables</h2>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>API_KEY</code></td>
+<td>Twelve Labs API key (<code>tlk_...</code>)</td>
+</tr>
+<tr>
+<td><code>WEBHOOK_SECRET</code></td>
+<td>Twelve Labs webhook signing secret (<code>whs_...</code>)</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
