@@ -98,7 +98,7 @@ const ANALYZE_JSON_SCHEMA = {
         product_line: { type: "string" },
         confidence_score: { type: "number" },
       },
-      required: ["sku", "confidence_score"],
+      required: ["sku", "product_line", "confidence_score"],
     },
     format: {
       type: "string",
@@ -126,7 +126,7 @@ const ANALYZE_JSON_SCHEMA = {
           enum: ["studio", "outdoor", "home_interior"],
         },
       },
-      required: ["shot_type", "activity"],
+      required: ["shot_type", "activity", "setting"],
     },
     intelligence: {
       type: "object",
